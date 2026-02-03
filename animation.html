@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>body{margin:0;background:#0a0a14;}canvas{display:block}</style>
+</head>
+<body>
+    <canvas id="c"></canvas>
+    <script>
+        const c=document.getElementById("c"),ctx=c.getContext("2d");
+        c.width=window.innerWidth;c.height=window.innerHeight;
+        function f(x,y,l,a,d){if(d==0)return;
+            let x2=x+l*Math.cos(a),y2=y+l*Math.sin(a);
+            ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x2,y2);
+            ctx.strokeStyle=`hsla(${200+d*20},99%,60%,${0.1+d*0.1})`;
+            ctx.lineWidth=d*0.5;ctx.stroke();
+            f(x2,y2,l*0.75,a-0.5,d-1);
+            f(x2,y2,l*0.75,a+0.5,d-1);
+        }
+        function animate(){ctx.fillStyle="rgba(10,10,20,0.05)";
+            ctx.fillRect(0,0,c.width,c.height);
+            f(c.width/2,c.height,80,-Math.PI/2,10);
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
+</body>
+</html>
